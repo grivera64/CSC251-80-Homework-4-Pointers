@@ -45,7 +45,7 @@ int main()
     //for arrivals
     to_minutes(10, 16, &arrivals[0]);
     to_minutes(11, 52, &arrivals[1]);
-    to_minutes(1, 31, &arrivals[2]);
+    to_minutes(13, 31, &arrivals[2]);
     to_minutes(15, 0, &arrivals[3]);
     to_minutes(16, 8, &arrivals[4]);
     to_minutes(17, 55, &arrivals[5]);
@@ -96,7 +96,7 @@ void printChart()
     /* Details under header */
     printf("%10s%20s\n", "8:00 am", "10:16 am");
     printf("%10s%20s\n", "9:43 am", "11:52 am");
-    printf("%10s%20s\n", "11:19 am", "1:31 am");
+    printf("%10s%20s\n", "11:19 am", "1:31 pm");
     printf("%10s%20s\n", "12:47 am", "3:00 pm");
     printf("%10s%20s\n", "2:00 pm", "4:08 pm");
     printf("%10s%20s\n", "3:45 pm", "5:55 pm");
