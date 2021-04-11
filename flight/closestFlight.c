@@ -77,7 +77,7 @@ int main()
     to_clock(*depart, &depart_hours, &depart_minutes);
     to_clock(*arrive, &arrive_hours, &arrive_minutes);
 
-    printf("The closest departure time is %d:%d %s, arriving at %d:%d %s\n", 
+    printf("The closest departure time is %d:%02d %s, arriving at %d:%02d %s\n", 
             depart_hours % 12, depart_minutes, (depart_hours > 12) ? "p.m." : "a.m.", 
             arrive_hours % 12, arrive_minutes, (depart_hours > 12) ? "p.m." : "a.m.");
 
@@ -133,7 +133,8 @@ void find_closest_flight(int desired_time, int *departure_time, int *arrival_tim
             Check if the difference for the current depart time 
             is greater than the new depart time
         */
-        if(abs(*(departure_time + i) - desired_time) > abs(*(departure_time + i + 1) - desired_time))
+        if(abs(*(departure_time + i) - desired_time) > abs(*(departure_time + i + 1) - desired_time)
+            && abs(*depart_pair - desired_time) >= abs(*(departure_time + i + 1) - desired_time))
         {
 
             /* If the current is greater, set the depart_pair to the next one */
