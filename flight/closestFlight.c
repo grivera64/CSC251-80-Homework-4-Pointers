@@ -103,10 +103,10 @@ void find_closest_flight(int desired_time, int *departure_time, int *arrival_tim
 
         if(abs(*(depart_pair + i) - desired_time) > abs(*(depart_pair + i + 1) - desired_time))
         {
+
             depart_pair = departure_time + i + 1;
             arrival_pair = arrival_time + i + 1;
-            continue;
-
+            
         }
 
     }
