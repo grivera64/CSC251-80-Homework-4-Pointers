@@ -18,6 +18,8 @@ void to_minutes(int hours, int minutes, int *total);                            
 
 void find_closest_flight(int desired_time, int *departure_time, int *arrival_time);     //locates the closest time to desired
 
+void to_clock(int total, int *hours, int *minutes);
+
 /* Start of Program */
 int main()
 {
@@ -72,7 +74,14 @@ int main()
     /* Find the closest  */
     find_closest_flight(total, depart, arrive);
 
-    printf("The closest time to %d is %d\n", total, *depart);
+    int depart_hours, depart_minutes, arrive_hours, arrive_minutes;
+
+    to_clock(*depart, &depart_hours, &depart_minutes);
+    to_clock(*arrive, &arrive_hours, &arrive_minutes);
+
+    printf("The closest departure time is %d:%d %s, arriving at %d:%d %s\n", 
+            depart_hours % 12, depart_minutes, (depart_hours > 12) ? "p.m." : "a.m.", 
+            arrive_hours % 12, arrive_minutes, (depart_hours > 12) ? "p.m." : "a.m.");
 
     /* Terminate the program */
     return 0;
@@ -143,5 +152,13 @@ void find_closest_flight(int desired_time, int *departure_time, int *arrival_tim
     */
     *departure_time = *depart_pair;
     *arrival_time = *arrival_pair;
+
+}
+
+void to_clock(int total, int *hours, int *minutes)
+{
+
+    *hours = total / 60;
+    *minutes = total % 60;
 
 }
