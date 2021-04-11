@@ -58,8 +58,6 @@ int main()
     depart = &departures[0];
     arrive = &arrivals[0];
 
-    printf("Original depart is %d\n", *depart);
-
     find_closest_flight(total, depart, arrive);
 
     printf("The closest time to %d is %d\n", total, *depart);
@@ -113,7 +111,5 @@ void find_closest_flight(int desired_time, int *departure_time, int *arrival_tim
 
     *departure_time = *depart_pair;
     *arrival_time = *arrival_pair;
-
-    printf("Should point to %d and %d\n", *departure_time, *arrival_time);
 
 }
