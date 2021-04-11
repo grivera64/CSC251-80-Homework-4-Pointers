@@ -16,7 +16,7 @@
 void printChart();                                              //prints daily flights table to terminal
 void to_minutes(int hours, int minutes, int *total);            //converts hh:mm to minutes
 
-void find_closest_flight(int desired_time, int *departure_time, int * arrival_time);
+void find_closest_flight(int desired_time, int *departure_time, int *arrival_time);
 
 int main()
 {
@@ -57,6 +57,8 @@ int main()
 
     depart = &departures[0];
     arrive = &arrivals[0];
+
+    printf("Original depart is %d\n", *depart);
 
     find_closest_flight(total, depart, arrive);
 
@@ -99,28 +101,19 @@ void find_closest_flight(int desired_time, int *departure_time, int *arrival_tim
     for (int i = 0; i < SIZE - 1; i++)
     {
 
-        printf("Comparing *departure_time = %d to *(departure_time + 1) = %d\n", *departure_time, *(departure_time + 1));
-        if(abs(*departure_time - desired_time) > abs(*(departure_time + 1) - desired_time))
+        if(abs(*(depart_pair + i) - desired_time) > abs(*(depart_pair + i + 1) - desired_time))
         {
-
-            printf("Chose *(departure_time + 1)\n");
-            depart_pair = ++departure_time;
-            arrival_pair = ++arrival_time;
-            printf("Curr Val: %d\n", *depart_pair);
+            depart_pair = departure_time + i + 1;
+            arrival_pair = arrival_time + i + 1;
             continue;
 
         }
-
-        printf("Chose *departure_time\n");
-
-        departure_time++;
-        arrival_time++;
-
-        printf("Curr Val: %d\n", *depart_pair);
 
     }
 
     *departure_time = *depart_pair;
     *arrival_time = *arrival_pair;
+
+    printf("Should point to %d and %d\n", *departure_time, *arrival_time);
 
 }
