@@ -21,6 +21,27 @@ int main()
 
     int hours, minutes, total;
 
+    int departures[8] = {0};
+    int arrivals[8] = {0};
+
+    to_minutes(8, 0, &departures[0]);
+    to_minutes(9, 43, &departures[1]);
+    to_minutes(11, 19, &departures[2]);
+    to_minutes(0, 47, &departures[3]);
+    to_minutes(14, 0, &departures[4]);
+    to_minutes(15, 45, &departures[5]);
+    to_minutes(19, 0, &departures[6]);
+    to_minutes(21, 45, &departures[7]);
+
+    to_minutes(10, 16, &arrivals[0]);
+    to_minutes(11, 52, &arrivals[1]);
+    to_minutes(1, 31, &arrivals[2]);
+    to_minutes(15, 0, &arrivals[3]);
+    to_minutes(16, 8, &arrivals[4]);
+    to_minutes(17, 55, &arrivals[5]);
+    to_minutes(9, 20, &arrivals[6]);
+    to_minutes(23, 58, &arrivals[7]);
+
     printChart();
 
     printf("\nEnter your desired flight time in a 24-hour hh:mm format: ");
@@ -61,6 +82,6 @@ void to_minutes(int hours, int minutes, int *total)
 void find_closest_flight(int desired_time, int *departure_time, int * arrival_time)
 {
 
-    
+
 
 }
