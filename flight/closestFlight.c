@@ -62,8 +62,6 @@ int main()
     /* convert their 24-hour time to minutes */
     to_minutes(hours, minutes, &total);
 
-    printf("%d\n", total);
-
     /* Creating pointers for use in find_closest_flight function */
     int *depart, *arrive;
 
