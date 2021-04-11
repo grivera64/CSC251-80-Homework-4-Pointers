@@ -9,6 +9,8 @@
 
 /* Macros */
 #include <stdio.h>
+#include <math.h>
+#define SIZE 8
 
 /* Function prototypes */
 void printChart();                                              //prints daily flights table to terminal
@@ -21,8 +23,8 @@ int main()
 
     int hours, minutes, total;
 
-    int departures[8] = {0};
-    int arrivals[8] = {0};
+    int departures[SIZE] = {0};
+    int arrivals[SIZE] = {0};
 
     to_minutes(8, 0, &departures[0]);
     to_minutes(9, 43, &departures[1]);
@@ -50,6 +52,15 @@ int main()
     to_minutes(hours, minutes, &total);
 
     printf("%d\n", total);
+
+    int *depart, *arrive;
+
+    depart = &departures[0];
+    arrive = &arrivals[0];
+
+    find_closest_flight(total, depart, arrive);
+
+    printf("The closest time to %d is %d\n", total, *depart);
 
 
     return 0;
@@ -79,9 +90,37 @@ void to_minutes(int hours, int minutes, int *total)
 
 }
 
-void find_closest_flight(int desired_time, int *departure_time, int * arrival_time)
+void find_closest_flight(int desired_time, int *departure_time, int *arrival_time)
 {
 
+    int *depart_pair = departure_time;
+    int *arrival_pair = arrival_time;
 
+    for (int i = 0; i < SIZE - 1; i++)
+    {
+
+        printf("Comparing *departure_time = %d to *(departure_time + 1) = %d\n", *departure_time, *(departure_time + 1));
+        if(abs(*departure_time - desired_time) > abs(*(departure_time + 1) - desired_time))
+        {
+
+            printf("Chose *(departure_time + 1)\n");
+            depart_pair = ++departure_time;
+            arrival_pair = ++arrival_time;
+            printf("Curr Val: %d\n", *depart_pair);
+            continue;
+
+        }
+
+        printf("Chose *departure_time\n");
+
+        departure_time++;
+        arrival_time++;
+
+        printf("Curr Val: %d\n", *depart_pair);
+
+    }
+
+    *departure_time = *depart_pair;
+    *arrival_time = *arrival_pair;
 
 }
