@@ -13,19 +13,24 @@
 #define SIZE 8
 
 /* Function prototypes */
-void printChart();                                              //prints daily flights table to terminal
-void to_minutes(int hours, int minutes, int *total);            //converts hh:mm to minutes
+void printChart();                                                                      //prints daily flights table to terminal
+void to_minutes(int hours, int minutes, int *total);                                    //converts hh:mm to minutes
 
-void find_closest_flight(int desired_time, int *departure_time, int *arrival_time);
+void find_closest_flight(int desired_time, int *departure_time, int *arrival_time);     //locates the closest time to desired
 
+/* Start of Program */
 int main()
 {
 
+    //declaring local variables
     int hours, minutes, total;
 
+    //creating arrays of size SIZE and 
     int departures[SIZE] = {0};
     int arrivals[SIZE] = {0};
 
+    /* Initializing each array slot to time in 24-hour time in minutes */
+    //for departures
     to_minutes(8, 0, &departures[0]);
     to_minutes(9, 43, &departures[1]);
     to_minutes(11, 19, &departures[2]);
@@ -35,6 +40,7 @@ int main()
     to_minutes(19, 0, &departures[6]);
     to_minutes(21, 45, &departures[7]);
 
+    //for arrivals
     to_minutes(10, 16, &arrivals[0]);
     to_minutes(11, 52, &arrivals[1]);
     to_minutes(1, 31, &arrivals[2]);
@@ -44,33 +50,43 @@ int main()
     to_minutes(9, 20, &arrivals[6]);
     to_minutes(23, 58, &arrivals[7]);
 
+    /* Show user the times available */
     printChart();
 
+    /* Ask user for their preferred/desired time */
     printf("\nEnter your desired flight time in a 24-hour hh:mm format: ");
     scanf("%d:%d", &hours, &minutes);
 
+    /* convert their 24-hour time to minutes */
     to_minutes(hours, minutes, &total);
 
     printf("%d\n", total);
 
+    /* Creating pointers for use in find_closest_flight function */
     int *depart, *arrive;
 
+    /* Point each pointer to the start of its respective array */
     depart = &departures[0];
     arrive = &arrivals[0];
 
+    /* Find the closest  */
     find_closest_flight(total, depart, arrive);
 
     printf("The closest time to %d is %d\n", total, *depart);
 
-
+    /* Terminate the program */
     return 0;
 
 }
 
+/* Prints the Chart/Table to the Terminal */
 void printChart()
 {
 
+    /* Header */
     printf("%-20s%-20s\n", "Departure Time", "Arrival Time");
+    
+    /* Details under header */
     printf("%10s%20s\n", "8:00 am", "10:16 am");
     printf("%10s%20s\n", "9:43 am", "11:52 am");
     printf("%10s%20s\n", "11:19 am", "1:31 am");
@@ -82,33 +98,49 @@ void printChart()
 
 }
 
+/* Converts inserted hours and minutes to just minutes */
 void to_minutes(int hours, int minutes, int *total)
 {
 
+    //convert hours to minutes
     *total = hours * 60;
+
+    //add rest of the minutes
     *total += minutes;
 
 }
 
+/* Finding the closest time to the desired time */
 void find_closest_flight(int desired_time, int *departure_time, int *arrival_time)
 {
 
+    /* Create local pointers to store the address of the passed pointers */
     int *depart_pair = departure_time;
     int *arrival_pair = arrival_time;
 
+    /* Search for the closest possible time */
     for (int i = 0; i < SIZE - 1; i++)
     {
 
+        /*
+            Check if the difference for the current depart time 
+            is greater than the new depart time
+        */
         if(abs(*(depart_pair + i) - desired_time) > abs(*(depart_pair + i + 1) - desired_time))
         {
 
+            /* If the current is greater, set the depart_pair to the next one */
             depart_pair = departure_time + i + 1;
             arrival_pair = arrival_time + i + 1;
             
-        }
+        } //end if
 
     }
 
+    /* 
+        Set value at the address passed in to departure_time 
+        to the new value of depart_pair and do the same with arrival_time
+    */
     *departure_time = *depart_pair;
     *arrival_time = *arrival_pair;
 
