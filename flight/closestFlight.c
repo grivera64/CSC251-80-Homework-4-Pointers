@@ -14,6 +14,8 @@
 void printChart();                                              //prints daily flights table to terminal
 void to_minutes(int hours, int minutes, int *total);            //converts hh:mm to minutes
 
+void find_closest_flight(int desired_time, int *departure_time, int * arrival_time);
+
 int main()
 {
 
@@ -53,5 +55,12 @@ void to_minutes(int hours, int minutes, int *total)
 
     *total = hours * 60;
     *total += minutes;
+
+}
+
+void find_closest_flight(int desired_time, int *departure_time, int * arrival_time)
+{
+
+    
 
 }
