@@ -12,11 +12,22 @@
 
 /* Function prototypes */
 void printChart();                                              //prints daily flights table to terminal
+void to_minutes(int hours, int minutes, int *total);            //converts hh:mm to minutes
 
 int main()
 {
 
+    int hours, minutes, total;
+
     printChart();
+
+    printf("\nEnter your desired flight time in a 24-hour hh:mm format: ");
+    scanf("%d:%d", &hours, &minutes);
+
+    to_minutes(hours, minutes, &total);
+
+    printf("%d\n", total);
+
 
     return 0;
 
@@ -34,5 +45,13 @@ void printChart()
     printf("%10s%20s\n", "3:45 pm", "5:55 pm");
     printf("%10s%20s\n", "7:00 pm", "9:20 am");
     printf("%10s%20s\n", "9:45 pm", "11:58 pm");
+
+}
+
+void to_minutes(int hours, int minutes, int *total)
+{
+
+    *total = hours * 60;
+    *total += minutes;
 
 }
