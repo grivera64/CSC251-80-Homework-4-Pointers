@@ -13,152 +13,148 @@
 #define EMPTY 987654321
 
 //declaring function prototypes
-void quick_sort(int arrList[], int lowIndex, int highIndex);
-int split(int arr[], int lowIndex, int highIndex);
+void quick_sort(int *arr_first, int *arr_last, int *left, int *right);
+int *split(int *arr_first, int *arr_last, int *left, int *right);
 
 //main (driver) function
 int main(void)
 {
 
-  //declaring an array with an initialized value of 0
-  int arr[N] = {0};
+    //declaring an array with an initialized value of 0
+    int arr[N] = {0};
 
-  //requesting for user input
-  printf("Enter %d values to sort: ", N);
-  scanf("%d %d %d %d %d %d %d", 
-  &arr[0], &arr[1], &arr[2], &arr[3], &arr[4], &arr[5], &arr[6]);
+    //requesting for user input
+    printf("Enter %d values to sort: ", N);
+    scanf("%d %d %d %d %d %d %d", 
+    &arr[0], &arr[1], &arr[2], &arr[3], &arr[4], &arr[5], &arr[6]);
 
-  //calling quick sort alorithm and passing array by reference
-  quick_sort(arr, 0, N - 1);
+    //calling quick sort alorithm and passing array by reference
+    quick_sort(&arr[0], &arr[N - 1], &arr[0], &arr[N - 1]);
 
-  //printing sorted array
-  printf("\nNew array reads: ");
+    //printing sorted array
+    printf("\nNew array reads: ");
 
-  for (int num = 0; num < N; num++)
-  {
-    printf("%d ", arr[num]);
-  }
+    for (int num = 0; num < N; num++)
+    {
 
-  printf("\n");
+        printf("%d ", arr[num]);
+    
+    }
+
+    printf("\n");
 
 
-  //exiting program
-  return 0;
+    //exiting program
+    return 0;
 }
 
 //recursive function for sorting the array using the quick sort 
 //algorithm
-void quick_sort(int arr[], int lowIndex, int highIndex)
+void quick_sort(int *arr_start, int *arr_end, int *left, int *right)
 {
 
-  //base case for recursive formula
-  if (lowIndex >= highIndex || lowIndex < 0 || highIndex >= N)
-  {
+    //base case for recursive formula
+    if (left >= right || left < arr_start || right > arr_end)
+    {
 
-    //stop recursion
-    return;
+        //stop recursion
+        return;
 
-  }
-  
-  //split the array into two
-  int middleIndex = split(arr, lowIndex, highIndex);
-  //check the first half
-  quick_sort(arr, lowIndex, middleIndex - 1);
-  //check the second half
-  quick_sort(arr, middleIndex + 1, highIndex);
+    }
+
+    //split the array into two
+    int *middle = split(arr_start, arr_end, left, right);
+    //check the first half
+    quick_sort(arr_start, arr_end, left, middle);
+    //check the second half
+    quick_sort(arr_start, arr_end, middle + 1, right);
 }
 
 //returns a middle section of the array to split the array by
-int split(int arr[], int lowIndex, int highIndex)
+int *split(int *arr_start, int *arr_end, int *left, int *right)
 {
-  //storing old values of lowIndex and highIndex for later use
-  int oldStart = lowIndex;
-  int oldEnd = highIndex;
 
-  //local variable declaration
-  int middleIndex;
+    //setting the pivot of the array to start from
+    int pivot = *left;
+    *left = EMPTY;
 
-  //setting the pivot of the array to start from
-  int pivot = arr[lowIndex];
-  arr[lowIndex] = EMPTY;
-
-  //iterate until the current values match the pivot's location
-  //(using lecture 8 [February 24] algorithm technique)
-  while (lowIndex <= highIndex)
-  {
-
-
-    //if highIndex is not empty
-    if (arr[highIndex] != EMPTY)
+    //iterate until the current values match the pivot's location
+    //(using lecture 8 [February 24] algorithm technique)
+    while (left <= right)
     {
 
-      //check if matches pivot
-      if (arr[highIndex] >= pivot)
-      {
 
-        //go to next index
-        highIndex--;
+        //if highIndex is not empty
+        if (*right != EMPTY)
+        {
 
-      }
-      else
-      {
+            //check if matches pivot
+            if (*right >= pivot)
+            {
 
-        //switch and keep same pivot
-        arr[lowIndex] = arr[highIndex];
-        lowIndex++;
-        arr[highIndex] = (lowIndex >= highIndex) ? pivot : EMPTY;
+            //go to next index
+            right--;
 
-      }
+            }
+            else
+            {
+
+            //switch and keep same pivot
+            *left = *right;
+            left++;
+            *right = (left >= right) ? pivot : EMPTY;
+
+            }
+
+        }
+        // if lowIndex is not empty
+        else if (*left != EMPTY)
+        {
+            
+            //check if matches pivot
+            if (*left <= pivot)
+            {
+
+                //continue
+                left++;
+
+            }
+            else
+            {
+
+                //switch and keep same pivot
+                *right = *left;
+                right--;
+                *left = (left >= right) ? pivot : EMPTY;
+
+            }
+
+        }
+        //if both are empty
+        else
+        {
+
+            //fill the last EMPTY array slot with the pivot's value
+            //(Shouldn't have a true difference as lowIndex == highIndex)
+            if (*left == EMPTY)
+            {
+
+                *left = pivot;
+
+            }
+            else
+            {
+
+                *right = pivot;
+
+            }
+
+            break;
+        }
 
     }
-    // if lowIndex is not empty
-    else if (arr[lowIndex] != EMPTY)
-    {
-      
-      //check if matches pivot
-      if (arr[lowIndex] <= pivot)
-      {
 
-        //continue
-        lowIndex++;
-
-      }
-      else
-      {
-
-        //switch and keep same pivot
-        arr[highIndex] = arr[lowIndex];
-        highIndex--;
-        arr[lowIndex] = (lowIndex >= highIndex) ? pivot : EMPTY;
-
-      }
-
-    }
-    //if both are empty
-    else
-    {
-
-      //fill the last EMPTY array slot with the pivot's value
-      //(Shouldn't have a true difference as lowIndex == highIndex)
-      if (arr[lowIndex] == EMPTY)
-      {
-
-        arr[lowIndex] = pivot;
-
-      }
-      else
-      {
-
-        arr[highIndex] = pivot;
-
-      }
-
-      break;
-    }
-
-  }
-
-  //return the current pivot's index
-  //(both highIndex and lowIndex contain its index)
-  return lowIndex;
+    //return the current pivot's index
+    //(both highIndex and lowIndex contain its index)
+    return left;
 }
