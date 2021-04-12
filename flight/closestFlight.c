@@ -72,11 +72,14 @@ int main()
     /* Find the closest  */
     find_closest_flight(total, depart, arrive);
 
+    /* local variables */
     int depart_hours, depart_minutes, arrive_hours, arrive_minutes;
-
+    
+    /* Find the hours and minutes of the closest time in minutes */
     to_clock(*depart, &depart_hours, &depart_minutes);
     to_clock(*arrive, &arrive_hours, &arrive_minutes);
 
+    /* Print result to user in a clean 12-hour clock format */
     printf("The closest departure time is %d:%02d %s, arriving at %d:%02d %s\n", 
             (depart_hours % 12) ? depart_hours % 12 : 12, depart_minutes, (depart_hours > 12) ? "p.m." : "a.m.", 
             (arrive_hours % 12) ? arrive_hours % 12 : 12, arrive_minutes, (depart_hours > 12) ? "p.m." : "a.m.");
