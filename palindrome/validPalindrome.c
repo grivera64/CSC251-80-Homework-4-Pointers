@@ -27,7 +27,8 @@ int main(void)
 
     /* request user for a message as a string (char array) */
     printf("Enter a string message: ");
-    int input_size = scan_line(&answer[0], SIZE);
+    int input_size = scan_line(&answer[0], SIZE);                           //scan_line is an adaptation of read_line 
+                                                                            //created by Dr. Salehin
 
     printf("User entered: %s\n", answer);
 
