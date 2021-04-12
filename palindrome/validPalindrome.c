@@ -11,6 +11,7 @@
 
 int scan_line(char *output, int size);
 int is_letter(int letter);
+int validate_palindrome(char *input, int size);
 
 int main(void)
 {
@@ -19,9 +20,13 @@ int main(void)
     char answer[SIZE];
 
     printf("Enter a string message: ");
-    scan_line(&answer[0], SIZE);
+    int input_size = scan_line(&answer[0], SIZE);
 
     printf("User entered: %s\n", answer);
+
+    int is_palindrome = validate_palindrome(&answer[0], input_size);
+
+    printf("Your input is %sa palindrome!\n", (is_palindrome) ? "" : "not ");
 
     return 0;
 
@@ -61,5 +66,24 @@ int is_letter(int letter)
 {
 
     return (letter >= 65 && letter <= 90) || (letter >= 97 && letter <= 122);
+
+}
+
+int validate_palindrome(char *input, int size)
+{
+
+    for (char *left = input, *right = input + size - 1; left < input + size; left++, right--)
+    {
+
+        if (*left != *right)
+        {
+
+            return 0;
+
+        }
+
+    }
+
+    return 1;
 
 }
