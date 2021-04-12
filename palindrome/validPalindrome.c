@@ -3,6 +3,8 @@
     Name: validPalindrome.c
     Purpose: Determines whether a provided input is a valid palindrome
              (disregarding spaces or )
+    Author: grivera64
+    Date: 04/12/2021
 
 */
 
