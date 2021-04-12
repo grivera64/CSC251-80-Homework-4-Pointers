@@ -8,9 +8,9 @@
 */
 
 /* Macros */
-#include <stdio.h>
-#include <math.h>
-#define SIZE 8
+#include <stdio.h>                                                                      //includes standard input output library
+#include <math.h>                                                                       //includes abs() function
+#define SIZE 8                                                                          //macro constant variable
 
 /* Function prototypes */
 void printChart();                                                                      //prints daily flights table to terminal
@@ -18,7 +18,7 @@ void to_minutes(int hours, int minutes, int *total);                            
 
 void find_closest_flight(int desired_time, int *departure_time, int *arrival_time);     //locates the closest time to desired
 
-void to_clock(int total, int *hours, int *minutes);
+void to_clock(int total, int *hours, int *minutes);                                     //coverts minutes to 24-hour time
 
 /* Start of Program */
 int main()
@@ -33,24 +33,24 @@ int main()
 
     /* Initializing each array slot to time in 24-hour time in minutes */
     //for departures
-    to_minutes(8, 0, &departures[0]);
-    to_minutes(9, 43, &departures[1]);
-    to_minutes(11, 19, &departures[2]);
-    to_minutes(0, 47, &departures[3]);
-    to_minutes(14, 0, &departures[4]);
-    to_minutes(15, 45, &departures[5]);
-    to_minutes(19, 0, &departures[6]);
-    to_minutes(21, 45, &departures[7]);
+    to_minutes(8, 0, &departures[0]);                                                   //8:00 am
+    to_minutes(9, 43, &departures[1]);                                                  //9:43 am
+    to_minutes(11, 19, &departures[2]);                                                 //11:19 am
+    to_minutes(0, 47, &departures[3]);                                                  //12:47 am
+    to_minutes(14, 0, &departures[4]);                                                  //2:00 pm
+    to_minutes(15, 45, &departures[5]);                                                 //3:45 pm
+    to_minutes(19, 0, &departures[6]);                                                  //7:00 pm
+    to_minutes(21, 45, &departures[7]);                                                 //9:45 pm
 
     //for arrivals
-    to_minutes(10, 16, &arrivals[0]);
-    to_minutes(11, 52, &arrivals[1]);
-    to_minutes(13, 31, &arrivals[2]);
-    to_minutes(15, 0, &arrivals[3]);
-    to_minutes(16, 8, &arrivals[4]);
-    to_minutes(17, 55, &arrivals[5]);
-    to_minutes(9, 20, &arrivals[6]);
-    to_minutes(23, 58, &arrivals[7]);
+    to_minutes(10, 16, &arrivals[0]);                                                   //10:16 am
+    to_minutes(11, 52, &arrivals[1]);                                                   //11:52 am
+    to_minutes(13, 31, &arrivals[2]);                                                   //1:31 pm
+    to_minutes(15, 0, &arrivals[3]);                                                    //3:00 pm
+    to_minutes(16, 8, &arrivals[4]);                                                    //4:08 pm
+    to_minutes(17, 55, &arrivals[5]);                                                   //5:55 pm
+    to_minutes(9, 20, &arrivals[6]);                                                    //9:20 am
+    to_minutes(23, 58, &arrivals[7]);                                                   //11:58 pm
 
     /* Show user the times available */
     printChart();
@@ -157,10 +157,11 @@ void find_closest_flight(int desired_time, int *departure_time, int *arrival_tim
 
 }
 
+/* Converts minutes to 24-hour time */
 void to_clock(int total, int *hours, int *minutes)
 {
 
-    *hours = total / 60;
-    *minutes = total % 60;
+    *hours = total / 60;                                                                //determines hours in total minutes
+    *minutes = total % 60;                                                              //sets rest of the minutes to minutes
 
 }
