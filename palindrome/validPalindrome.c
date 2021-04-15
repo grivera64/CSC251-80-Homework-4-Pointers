@@ -30,13 +30,11 @@ int main(void)
     int input_size = scan_line(&answer[0], SIZE);                           //scan_line is an adaptation of read_line 
                                                                             //created by Dr. Salehin
 
-    printf("User entered: %s\n", answer);
-
     /* Check if the user input is a palindrome */
     int is_palindrome = validate_palindrome(&answer[0], input_size);
 
     /* Print the validation result in a user-friendly manner */
-    printf("Your input is %sa palindrome!\n", (is_palindrome) ? "" : "not ");
+    printf("\nYour input is %sa palindrome!\n", (is_palindrome) ? "" : "not ");
 
     /* Terminate the Program */
     return 0;
