@@ -13,8 +13,8 @@
 #define EMPTY 987654321
 
 //declaring function prototypes
-void quick_sort(int *arr_first, int *arr_last, int *left, int *right);
-int *split(int *arr_first, int *arr_last, int *left, int *right);
+void quick_sort(int arr[], int *left, int *right);
+int *split(int *left, int *right);
 
 //main (driver) function
 int main(void)
@@ -33,8 +33,8 @@ int main(void)
     
     }
 
-    //calling quick sort alorithm and passing array by reference
-    quick_sort(&arr[0], &arr[N - 1], &arr[0], &arr[N - 1]);
+    //calling quick sort alorithm with arrays and pointers
+    quick_sort(arr, arr, arr + N);
 
     //printing sorted array
     printf("\nNew array reads: ");
@@ -55,11 +55,11 @@ int main(void)
 
 //recursive function for sorting the array using the quick sort 
 //algorithm
-void quick_sort(int *arr_start, int *arr_end, int *left, int *right)
+void quick_sort(int arr[], int *left, int *right)
 {
 
     //base case for recursive formula
-    if (left >= right || left < arr_start || right > arr_end)
+    if (left >= right || left < arr || right > arr + N)
     {
 
         //stop recursion
@@ -68,15 +68,17 @@ void quick_sort(int *arr_start, int *arr_end, int *left, int *right)
     }
 
     //split the array into two
-    int *middle = split(arr_start, arr_end, left, right);
+    int *middle = split(left, right);
+
     //check the first half
-    quick_sort(arr_start, arr_end, left, middle);
+    quick_sort(arr, left, middle);
+    
     //check the second half
-    quick_sort(arr_start, arr_end, middle + 1, right);
+    quick_sort(arr, middle + 1, right);
 }
 
 //returns a middle section of the array to split the array by
-int *split(int *arr_start, int *arr_end, int *left, int *right)
+int *split(int *left, int *right)
 {
 
     //setting the pivot of the array to start from
