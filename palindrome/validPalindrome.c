@@ -27,6 +27,7 @@ int main(void)
 
     /* request user for a message as a string (char array) */
     printf("Enter a string message: ");
+    fflush(stdout);                                                         // Flush text to terminal without printing a newline
     int input_size = scan_line(&answer[0], SIZE);                           //scan_line is an adaptation of read_line 
                                                                             //created by Dr. Salehin
 
